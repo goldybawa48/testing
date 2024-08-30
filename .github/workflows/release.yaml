@@ -19,7 +19,8 @@ jobs:
         env:
           GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
         run: |
-          git fetch --all
+          git config --global goldy "github-actions[bot]"
+          git config --global deebawa48@gmail.com "github-actions[bot]@users.noreply.github.com"
           TAG="v1.0.$(git rev-list --count HEAD)"
           git tag $TAG
-          git push https://x-access-token:${GIT_TOKEN}@github.com/goldybawa48/testing.git $TAG
+          git push --tags
