@@ -8,8 +8,9 @@ resource "aws_instance" "web" {
   instance_type = "t2.micro"
   key_name = "ganesh"
   security_groups = [ "default" ]
+  user_data = file("${path.module}/userdata.sh")
 
   tags = {
-    Name = "HelloWorld"
+    Name = "Dev"
   }
 }
