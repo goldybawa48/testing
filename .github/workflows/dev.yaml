@@ -23,7 +23,7 @@ jobs:
 
       - name: Test NGINX container
         run: |
-          docker run -d -p 8080:80 nginx-dev:latest
+          docker run -d -p 8080:80 ${{ secrets.DOCKER_USERNAME }}/nginx-dev:latest .
           sleep 10
           curl --fail http://localhost:8080
 
