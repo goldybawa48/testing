@@ -28,7 +28,11 @@ jobs:
           curl --fail http://localhost:8080
 
       - name: List Docker images
-        run: docker images  
+        run: docker images
+
+      - name: Push Docker image to Docker Hub
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/nginx-test:latest
+  
 
   deploy:
     needs: lint_test_build
@@ -46,8 +50,8 @@ jobs:
       - name: List Docker images
         run: docker images  
 
-      - name: Push Docker image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/nginx-test:latest
+          #      - name: Push Docker image to Docker Hub
+          #        run: docker push ${{ secrets.DOCKER_USERNAME }}/nginx-test:latest
 
       - name: Deploy to EC2 using Terraform
         env:
