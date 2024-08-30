@@ -23,10 +23,9 @@ jobs:
 
       - name: Test NGINX container
         run: |
-          docker run -d -p 8080:80 ${{ secrets.DOCKER_USERNAME }}/nginx-dev:latest .
-          sleep 10
+          docker run -d -p 8080:80 ${{ secrets.DOCKER_USERNAME }}/nginx-dev:latest
+          sleep 30
           curl --fail http://localhost:8080
-
   deploy:
     needs: lint_test_build
     runs-on: ubuntu-latest
