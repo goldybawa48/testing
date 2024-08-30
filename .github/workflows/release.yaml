@@ -19,8 +19,7 @@ jobs:
         env:
           GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
         run: |
-          git fetch --all
+          # git fetch --all
           TAG="v1.0.$(git rev-list --count HEAD)"
           git tag $TAG
-          git push https://${GIT_TOKEN}@github.com/goldybawa48/testing.git $TAG
-
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/goldybawa48/testing.git $TAG
