@@ -16,10 +16,11 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Create Release Tag
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git fetch --all
           TAG="v1.0.$(git rev-list --count HEAD)"
           git tag $TAG
-          git push origin $TAG
-
+          git push https://x-access-token:${GITHUB_TOKEN}@github.com/goldybawa48/testing.git $TAG
 
