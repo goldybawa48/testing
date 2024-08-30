@@ -19,11 +19,11 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx-dev:latest .
+        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/nginx-test:latest .
 
       - name: Test NGINX container
         run: |
-          docker run -d -p 8080:80 ${{ secrets.DOCKER_USERNAME }}/nginx-dev:latest
+          docker run -d -p 8080:80 ${{ secrets.DOCKER_USERNAME }}/nginx-test:latest
           sleep 20  # or use retry mechanism as mentioned earlier
           curl --fail http://localhost:8080
 
@@ -47,7 +47,7 @@ jobs:
         run: docker images  
 
       - name: Push Docker image to Docker Hub
-        run: docker push ${{ secrets.DOCKER_USERNAME }}/nginx-dev:latest
+        run: docker push ${{ secrets.DOCKER_USERNAME }}/nginx-test:latest
 
       - name: Deploy to EC2 using Terraform
         env:
