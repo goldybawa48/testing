@@ -21,7 +21,7 @@ jobs:
 
       - name: Test SSH connection
         run: |
-          ssh -T git@github.com
+          ssh -T git@github.com || true
 
       - name: Set up Git
         run: |
@@ -39,5 +39,4 @@ jobs:
           git checkout main
           git merge release --no-ff --commit -m "Merging release branch"
           git push origin main
-#
-#
+
