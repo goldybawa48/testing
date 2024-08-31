@@ -31,7 +31,7 @@ jobs:
 
       - name: Create a tag based on commit count
         run: |
-          TAG="v2.1.$(git rev-list --count HEAD)"
+          TAG="v2.2.$(git rev-list --count HEAD)"
           git tag $TAG
           git push origin $TAG
 
@@ -56,5 +56,5 @@ jobs:
           git checkout dev
           git merge main --no-ff --commit -m "Merging release branch"
           ls -lhtra
-      #    git push origin main
+          git push origin main
 
