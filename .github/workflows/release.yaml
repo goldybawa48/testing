@@ -31,7 +31,7 @@ jobs:
 
       - name: Create a tag based on commit count
         run: |
-          TAG="v1.9.$(git rev-list --count HEAD)"
+          TAG="v2.9.$(git rev-list --count HEAD)"
           git tag $TAG
           git push origin $TAG
 
@@ -43,11 +43,13 @@ jobs:
         run: |
           git checkout main
           git pull origin main
+          ls -lhtra
 
       - name: Checkout and Update Dev Branch
         run: |
           git checkout dev
           git pull origin dev
+          ls -lhtra
 
       - name: Merge dev into main
         run: |
