@@ -12,24 +12,27 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
       - name: Set up Git
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
       - name: Create a tag based on commit count
-        env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
         run: |
           TAG="v1.0.$(git rev-list --count HEAD)"
           git tag $TAG
-          git push https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }} $TAG
+          git push origin $TAG
 
       - name: Merge release into main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git checkout main
-          git merge release --no-ff --commit -m "Merging release branch"
-          git push https://x-access-token:${{ secrets.GIT_TOKEN }}@github.com/${{ github.repository }} main
+          git merge release/1.0.0 --no-ff --commit -m "Merging release branch"
+          git push origin main
 
