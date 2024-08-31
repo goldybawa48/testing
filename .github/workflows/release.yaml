@@ -31,7 +31,7 @@ jobs:
 
       - name: Create a tag based on commit count
         run: |
-          TAG="v1.8.$(git rev-list --count HEAD)"
+          TAG="v1.9.$(git rev-list --count HEAD)"
           git tag $TAG
           git push origin $TAG
 
