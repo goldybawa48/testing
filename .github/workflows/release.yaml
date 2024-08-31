@@ -14,28 +14,16 @@ jobs:
 
       - name: Set up Git
         run: |
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Determine tag version
-        id: tag_version
+      - name: Create a tag based on commit count
         run: |
-          # Get the latest tag version and increment it
-          latest_tag=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.0.0")
-          echo "Latest tag: $latest_tag"
-          new_tag=$(echo $latest_tag | awk -F. '{print $1"."$2"."$3+1}')
-          echo "New tag: $new_tag"
-          echo "::set-output name=tag::$new_tag"
+          TAG="v1.0.$(git rev-list --count HEAD)"
+          git tag $TAG
+          git push origin $TAG
 
-      - name: Create new tag
-        run: |
-          git tag ${{ steps.tag_version.outputs.tag }}
-
-      - name: Push tag to origin
-        run: |
-          git push origin ${{ steps.tag_version.outputs.tag }}
-
-      - name: Push tag to main branch
+      - name: Merge release into main
         run: |
           git checkout main
           git merge release --no-ff --commit -m "Merging release branch"
