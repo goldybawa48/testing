@@ -34,10 +34,12 @@ jobs:
           TAG="v1.2.$(git rev-list --count HEAD)"
           git tag $TAG
           git push origin $TAG
+          
+      - name: Create and Checkout Main Branch (if not exists)
+        run: |
+          git checkout -b main || git checkout main
 
       - name: Merge release into main
         run: |
-          git checkout main
           git merge dev --no-ff --commit -m "Merging release branch"
           git push origin main
-          #
