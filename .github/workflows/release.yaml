@@ -3,7 +3,7 @@ name: Create and Push Tag
 on:
   push:
     branches:
-      - release
+      - release/*
 
 jobs:
   create_tag:
