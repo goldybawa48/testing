@@ -13,6 +13,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ github.ref }}
+          token: ${{ secrets.GIT_TOKEN }}
 
       - name: Create a new tag
         run: |
@@ -30,6 +31,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: dev
+          token: ${{ secrets.GIT_TOKEN }}
 
       - name: Merge dev into main
         run: |
