@@ -20,8 +20,12 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           TAG_NAME=${GITHUB_REF#refs/heads/release/}
-          git tag $TAG_NAME
-          git push origin $TAG_NAME
+          if git rev-parse $TAG_NAME >/dev/null 2>&1; then
+            echo "Tag $TAG_NAME already exists."
+          else
+            git tag $TAG_NAME
+            git push origin $TAG_NAME
+          fi
 
   merge-dev-into-main:
     runs-on: ubuntu-latest
