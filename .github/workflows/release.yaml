@@ -20,7 +20,7 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           TAG_NAME=${GITHUB_REF#refs/heads/release/}
-          if git rev-parse $TAG_NAME >/dev/null 2>&1; then
+          if git ls-remote --tags origin | grep -q "refs/tags/$TAG_NAME"; then
             echo "Tag $TAG_NAME already exists."
           else
             git tag $TAG_NAME
